@@ -1,0 +1,18 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Leon's Terminal</title>
+</head>
+<body>
+    <h1>Leon’s Python-Terminal</h1>
+    <form action="/" method="POST">
+        <label>Python-Skript ausführen:</label>
+        <input type="text" name="befehl" value="startmenue.py">
+        <button type="submit">Start</button>
+    </form>
+
+    <pre>{{ output }}</pre>
+</body>
+</html>
