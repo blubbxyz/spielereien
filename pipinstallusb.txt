@@ -1,0 +1,19 @@
+# In einen Ordner wechseln:
+cd /d/Winpython64-3.14.0.0freeb3/WPy64-31400b3/python
+
+# Python-Skript mit bestimmtem Interpreter ausführen:
+./python.exe dein_script.py
+
+# Paket für diesen Python installieren:
+./python.exe -m pip install webuntis
+
+# Prüfen, ob ein Paket installiert ist:
+./python.exe -m pip show webuntis
+
+# Inhalt eines Ordners anzeigen:
+ls
+
+# Einen Ordner nach oben gehen:
+cd ..
+
+cd "d:\i guess\spielereien"
