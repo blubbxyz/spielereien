@@ -31,6 +31,7 @@ username = os.getenv("WEBUNTIS_USERNAME")
 password = os.getenv("WEBUNTIS_PASSWORD")
 server = os.getenv("WEBUNTIS_SERVER")
 school = os.getenv("WEBUNTIS_SCHOOL")
+name = os.getenv("WEBUNTIS_KLASSE")  # Standardmäßig FG 31, kann aber in .env geändert werden
 
 # Datum von Kommandozeile holen, sonst heute nehmen
 if len(sys.argv) > 2:
@@ -57,7 +58,7 @@ s = webuntis.Session(
     useragent='Python-Test'
 ).login()
 klassen = s.klassen()
-gefiltert = klassen.filter(name='FG 31')
+gefiltert = klassen.filter(name=name)
 
 if not gefiltert:
     print("Klasse 'FG 31' nicht gefunden!")

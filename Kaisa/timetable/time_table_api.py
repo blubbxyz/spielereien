@@ -31,6 +31,7 @@ password = os.getenv("WEBUNTIS_PASSWORD")
 server = os.getenv("WEBUNTIS_SERVER")
 school = os.getenv("WEBUNTIS_SCHOOL")
 useragent = os.getenv("WEBUNTIS_USERAGENT")
+name = os.getenv("WEBUNTIS_KLASSE")
 
 s = webuntis.Session(
     server=server,
@@ -52,7 +53,7 @@ startdatum = current_schoolyear.start.date()
 enddatum = current_schoolyear.end.date()
 
 klassen = s.klassen()
-gefiltert = klassen.filter(name='FG 31')
+gefiltert = klassen.filter(name=name)
 
 if not gefiltert:
     print("Klasse 'FG 31' nicht gefunden!")

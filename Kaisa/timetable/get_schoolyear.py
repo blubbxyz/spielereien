@@ -12,27 +12,18 @@ password = os.getenv("WEBUNTIS_PASSWORD")
 server = os.getenv("WEBUNTIS_SERVER")
 school = os.getenv("WEBUNTIS_SCHOOL")
 useragent = os.getenv("WEBUNTIS_USERAGENT")
+klasse_name = os.getenv("WEBUNTIS_KLASSE")  # <-- Klasse aus ENV
 
-if not all([username, password, server, school, useragent]):
+if not all([username, password, server, school, useragent, klasse_name]):
     print("Fehler: Mindestens eine WebUntis-Umgebungsvariable ist nicht gesetzt!")
     exit(1)
 
-# Schuljahr-ID und optional Zielpfad von Kommandozeile holen
-if len(sys.argv) > 1:
-    try:
-        schuljahr_id = int(sys.argv[1])
-    except ValueError:
-        print("Bitte Schuljahr-ID als Zahl übergeben!")
-        exit(1)
-else:
-    print("Bitte Schuljahr-ID als Argument übergeben!")
-    exit(1)
+# Zeitraum für das ganze Schuljahr festlegen (hier Beispiel: 2024-09-02 bis 2025-07-22)
+startdatum = datetime.strptime("2024-09-02", "%Y-%m-%d").date()
+enddatum = datetime.strptime("2025-07-11", "%Y-%m-%d").date()
 
-if len(sys.argv) > 2:
-    json_path = sys.argv[2]
-else:
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    json_path = os.path.join(script_dir, f"stunden_{schuljahr_id}.json")
+script_dir = os.path.dirname(os.path.abspath(__file__))
+json_path = os.path.join(script_dir, "stunden.json")
 
 session = webuntis.Session(
     server=server,
@@ -42,15 +33,6 @@ session = webuntis.Session(
     useragent=useragent,
 ).login()
 
-years = session.schoolyears()
-chosen_year = next((y for y in years if y.id == schuljahr_id), None)
-if not chosen_year:
-    print("Ungültige Schuljahr-ID.")
-    session.logout()
-    exit(1)
-
-# Klasse fest vorgeben wie in timetable_config_date.py
-klasse_name = 'FG 31'
 klassen = session.klassen()
 gefiltert = klassen.filter(name=klasse_name)
 if not gefiltert:
@@ -61,8 +43,8 @@ if not gefiltert:
 klasse = gefiltert[0]
 timetable = session.timetable(
     klasse=klasse,
-    start=chosen_year.start.date(),
-    end=chosen_year.end.date()
+    start=startdatum,
+    end=enddatum
 )
 
 stunden = []
@@ -91,8 +73,6 @@ stunden_dicts = [
     for _, datum, start_uhr, end_uhr, subject, status in stunden
 ]
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
-json_path = os.path.join(script_dir, "stunden.json")
 with open(json_path, "w", encoding="utf-8") as f:
     json.dump(stunden_dicts, f, ensure_ascii=False, indent=2)
 

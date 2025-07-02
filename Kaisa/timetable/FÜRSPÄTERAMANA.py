@@ -12,6 +12,7 @@ password = os.getenv("WEBUNTIS_PASSWORD")
 server = os.getenv("WEBUNTIS_SERVER")
 school = os.getenv("WEBUNTIS_SCHOOL")
 useragent = os.getenv("WEBUNTIS_USERAGENT")
+name = os.getenv("WEBUNTIS_KLASSE")
 
 if not all([username, password, server, school, useragent]):
     print("Fehler: Mindestens eine WebUntis-Umgebungsvariable ist nicht gesetzt!")
@@ -59,10 +60,10 @@ else:
 print(f"Gewähltes Schuljahr: {chosen_year.name} ({chosen_year.start.strftime('%Y-%m-%d')} bis {chosen_year.end.strftime('%Y-%m-%d')})")
 
 klassen = session.klassen()
-gefiltert = klassen.filter(name='FG 31')
+gefiltert = klassen.filter(name=name)
 
 if not gefiltert:
-    print("Klasse 'FG 31' nicht gefunden!")
+    print("Klasse nicht gefunden!")
     session.logout()
     exit()
 
