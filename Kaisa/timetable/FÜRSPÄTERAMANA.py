@@ -93,3 +93,4 @@ with open("stunden.json", "w", encoding="utf-8") as f:
 print(f"\n{len(stunden_liste)} Einträge wurden in stunden.json gespeichert.")
 
 session.logout()
+b
