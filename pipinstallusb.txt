@@ -16,4 +16,5 @@ ls
 # Einen Ordner nach oben gehen:
 cd ..
 
+bashbefehl für repo
 cd "d:\i guess\spielereien"

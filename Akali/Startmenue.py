@@ -7,6 +7,10 @@ import time
 import os 
 import subprocess
 import random
+
+# Füge das Projektverzeichnis als Variable hinzu:
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 ROT = '\033[91m'  # Rot
 gelb = '\033[93m'  # Gelb
 grün = '\033[92m'  # Grün
@@ -80,7 +84,10 @@ def coolerTaschenrechner():
     print("Willkommen zu Leon's cooler Taschenrechner")
     print("Hier kannst du verschiedene Rechnungen durchführen")
     print("Starte anderes Programm...")
-    subprocess.run(["python", "spielereien/coolerTaschenrechner1.2.py"])
+    subprocess.run(
+        ["python", "coolerTaschenrechner1.2.py"],
+        cwd=SCRIPT_DIR
+    )
     print(f"Das war der coole Taschenrechner, du bist nun zurück im Hauptmenü.")
     nochetwas()
 def TicTacToe():
@@ -91,7 +98,10 @@ def TicTacToe():
     clear()
     print("Willkommen zu Chat gpt's coolem Tic Tac Toe spiel")
     print("Starte anderes Programm...")
-    subprocess.run(["python", "spielereien/TicTacToe.py"])
+    subprocess.run(
+        ["python", "TicTacToe.py"],
+        cwd=SCRIPT_DIR
+    )
     print(f"Das war Tic Tac Toe, du bist nun zurück im Hauptmenü.")
     nochetwas()
 def reaktionstest():
@@ -102,7 +112,10 @@ def reaktionstest():
     clear()
     print("Willkommen zu Leon's Reakionstest")
     print("Starte anderes Programm...")
-    subprocess.run(["python", "spielereien/reaktionstest.py"])
+    subprocess.run(
+        ["python", "reaktionstest.py"],
+        cwd=SCRIPT_DIR
+    )
     print(f"Das war der Reaktionstest, du bist nun zurück im Hauptmenü.")
     nochetwas()
 def savegames():
@@ -113,7 +126,10 @@ def savegames():
     time.sleep(3)
     clear()
     print("Willkommen zu Leon's Spielstand-Verwaltung")
-    subprocess.run(["python", "spielereien/savegames.py"])
+    subprocess.run(
+        ["python", "savegames.py"],
+        cwd=SCRIPT_DIR
+    )
     print(f"Das war die Spielstand-Verwaltung, du bist nun zurück im Hauptmenü.")
     nochetwas()
 def reacttimebot():
@@ -124,7 +140,10 @@ def reacttimebot():
     clear()
     print("Willkommen zu Leon's Reaktionstest Bot")
     print("Starte anderes Programm...")
-    subprocess.run(["python", "spielereien/reacttimebot.py"])
+    subprocess.run(
+        ["python", "reacttimebot.py"],
+        cwd=SCRIPT_DIR
+    )
     print(f"Das war der Reaktionstest Bot, du bist nun zurück im Hauptmenü.")
     nochetwas()
 def andereSachen():
