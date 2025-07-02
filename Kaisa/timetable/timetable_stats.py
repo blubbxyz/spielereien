@@ -1,23 +1,79 @@
 import subprocess
 import json
 import os
+from datetime import datetime
 
-# Zeitraum abfragen
-startdatum = input("Startdatum (YYYY-MM-DD): ")
-enddatum = input("Enddatum (YYYY-MM-DD): ")
+def get_school_year(date_str):
+    # Annahme: Schuljahr beginnt im August
+    date = datetime.strptime(date_str, "%Y-%m-%d")
+    year = date.year
+    if date.month < 8:
+        return year - 1
+    return year
 
-subprocess.run([
-    "python", "Kaisa/timetable/timetable_config_date.py", startdatum, enddatum
-])
+print("Was möchtest du auswerten?")
+print("1) Einen bestimmten Zeitraum (z.B. wie time_table_api.py)")
+print("2) Das gesamte aktuelle Schuljahr")
+wahl = input("Bitte 1 oder 2 eingeben: ").strip()
 
-# Absoluten Pfad zur stunden.json im gleichen Ordner wie dieses Skript bestimmen
 script_dir = os.path.dirname(os.path.abspath(__file__))
-json_path = os.path.join(script_dir, "stunden.json")
+
+if wahl == "1":
+    while True:
+        startdatum = input("Startdatum (YYYY-MM-DD): ")
+        enddatum = input("Enddatum (YYYY-MM-DD): ")
+        try:
+            start_jahr = get_school_year(startdatum)
+            end_jahr = get_school_year(enddatum)
+        except Exception:
+            print("Ungültiges Datum. Bitte erneut eingeben.")
+            continue
+        if start_jahr != end_jahr:
+            print("Start- und Enddatum müssen im selben Schuljahr liegen!")
+            continue
+        break
+
+    # Zeitraum an das andere Skript übergeben
+    try:
+        result = subprocess.run(
+            ["python", "Kaisa/timetable/timetable_config_date.py", startdatum, enddatum],
+            capture_output=True, text=True
+        )
+        if result.returncode != 0:
+            print("Fehler beim Aufruf von timetable_config_date.py:")
+            print(result.stdout)
+            print(result.stderr)
+    except Exception as e:
+        print(f"Fehler beim Ausführen des Zeitraums {startdatum} bis {enddatum}: {e}")
+
+    json_path = os.path.join(script_dir, "stunden.json")
+
+elif wahl == "2":
+    # Gesamtes aktuelles Schuljahr: time_table_api.py aufrufen (legt stunden.json an)
+    try:
+        result = subprocess.run(
+            ["python", "Kaisa/timetable/time_table_api.py"],
+            capture_output=True, text=True
+        )
+        if result.returncode != 0:
+            print("Fehler beim Aufruf von time_table_api.py:")
+            print(result.stdout)
+            print(result.stderr)
+    except Exception as e:
+        print(f"Fehler beim Ausführen von time_table_api.py: {e}")
+
+    json_path = os.path.join(script_dir, "stunden.json")
+else:
+    print("Ungültige Auswahl.")
+    exit(1)
+
+if not os.path.exists(json_path):
+    print("Die Datei stunden.json wurde nicht gefunden. Es gab vermutlich einen Fehler beim Datenabruf.")
+    exit(1)
 
 with open(json_path, "r", encoding="utf-8") as f:
     stunden = json.load(f)
 
-# Statistik berechnen: Wie oft ist welches Fach ausgefallen?
 stats = {}
 for eintrag in stunden:
     fach = eintrag["subject"]
@@ -27,7 +83,6 @@ for eintrag in stunden:
     if eintrag["status"].startswith("❌"):
         stats[fach]["ausgefallen"] += 1
 
-# Tabelle ausgeben
 print("\nStatistik (Fach | Ausgefallen / Gesamt | Prozent ausgefallen):")
 print("-" * 55)
 for fach, werte in sorted(stats.items()):
