@@ -36,7 +36,7 @@ if wahl == "1":
     # Zeitraum an das andere Skript übergeben
     try:
         result = subprocess.run(
-            ["python", "Kaisa/timetable/timetable_config_date.py", startdatum, enddatum],
+            ["python", "Kaisa (Fun Projects)/timetable/timetable_config_date.py", startdatum, enddatum],
             capture_output=True, text=True
         )
         if result.returncode != 0:
@@ -52,7 +52,7 @@ elif wahl == "2":
     # Gesamtes aktuelles Schuljahr: time_table_api.py aufrufen (legt stunden.json an)
     try:
         result = subprocess.run(
-            ["python", "Kaisa/timetable/time_table_api.py"],
+            ["python", "Kaisa (Fun Projects)/timetable/time_table_api.py"],
             capture_output=True, text=True
         )
         if result.returncode != 0:

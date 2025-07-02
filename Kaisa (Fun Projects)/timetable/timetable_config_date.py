@@ -25,7 +25,7 @@ import sys
 from dotenv import load_dotenv
 import json
 
-load_dotenv("D:/i guess/cuh/Kaisa/timetable/timetable.env")
+load_dotenv("D:/i guess/cuh/Kaisa (Fun Projects)/timetable/timetable.env")
 
 username = os.getenv("WEBUNTIS_USERNAME")
 password = os.getenv("WEBUNTIS_PASSWORD")
