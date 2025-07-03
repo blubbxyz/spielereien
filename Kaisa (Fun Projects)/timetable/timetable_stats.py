@@ -4,7 +4,6 @@ import os
 from datetime import datetime
 
 def get_school_year(date_str):
-    # Annahme: Schuljahr beginnt im August
     date = datetime.strptime(date_str, "%Y-%m-%d")
     year = date.year
     if date.month < 8:
@@ -12,7 +11,7 @@ def get_school_year(date_str):
     return year
 
 print("Was möchtest du auswerten?")
-print("1) Einen bestimmten Zeitraum (z.B. wie time_table_api.py)")
+print("1) Einen bestimmten Zeitraum")
 print("2) Das gesamte aktuelle Schuljahr")
 wahl = input("Bitte 1 oder 2 eingeben: ").strip()
 
@@ -33,7 +32,6 @@ if wahl == "1":
             continue
         break
 
-    # Zeitraum an das andere Skript übergeben
     try:
         result = subprocess.run(
             ["python", "Kaisa (Fun Projects)/timetable/timetable_config_date.py", startdatum, enddatum],
@@ -49,7 +47,6 @@ if wahl == "1":
     json_path = os.path.join(script_dir, "stunden.json")
 
 elif wahl == "2":
-    # Gesamtes aktuelles Schuljahr: time_table_api.py aufrufen (legt stunden.json an)
     try:
         result = subprocess.run(
             ["python", "Kaisa (Fun Projects)/timetable/time_table_api.py"],

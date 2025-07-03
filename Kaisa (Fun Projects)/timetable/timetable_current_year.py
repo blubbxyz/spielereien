@@ -1,23 +1,3 @@
-# klassenaufliste:
-# import webuntis
-
-# s = webuntis.Session(
-#     server='https://melete.webuntis.com',     # Deine WebUntis-URL
-#     school='RBB Schwerin-Technik',           # Schulname (wie bei der Anmeldung)
-#     username='fg31',
-#     password='Schwerin02*',
-#     useragent='Python-Test'
-# ).login()
-
-# # Alle Klassen ausgeben
-# klassen = s.klassen()
-# for klasse in klassen:
-#     print(f"ID: {klasse.id} | Name: '{klasse.name}'")
-
-# s.logout()
-
-
-
 import webuntis
 from datetime import date
 import os
@@ -41,7 +21,6 @@ s = webuntis.Session(
     useragent=useragent,
 ).login()
 
-# Aktuelles Schuljahr bestimmen (das mit is_current == True)
 schoolyears = s.schoolyears()
 current_schoolyear = next((y for y in schoolyears if y.is_current), None)
 if not current_schoolyear:
@@ -81,7 +60,6 @@ for lesson in timetable:
         "status": status
     })
 
-# Speichere die Liste als JSON im gewünschten Verzeichnis
 json_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "stunden.json")
 with open(json_path, "w", encoding="utf-8") as f:
     json.dump(stunden_liste, f, ensure_ascii=False, indent=2)
