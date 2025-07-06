@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head><title>{{ prog.title }}</title></head>
+<body>
+    <h1>{{ prog.title }}</h1>
+    <p>{{ prog.description }}</p>
+    <form method="post">
+        {% if prog_name == "say_hello" %}
+            Your Name: <input name="name"><br>
+        {% elif prog_name == "calculate" %}
+            A: <input name="a"><br>
+            B: <input name="b"><br>
+        {% endif %}
+        <button type="submit">Run</button>
+    </form>
+    {% if result %}
+        <h2>Result:</h2>
+        <p>{{ result }}</p>
+    {% endif %}
+    <a href="{{ url_for('index') }}">Back</a>
+</body>
+</html>

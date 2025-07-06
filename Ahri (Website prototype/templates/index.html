@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head><title>CUH Programs</title></head>
+<body>
+    <h1>Available Programs</h1>
+    <ul>
+    {% for key, p in programs.items() %}
+        <li>
+            <a href="{{ url_for('run_program', prog_name=key) }}">{{ p.title }}</a>
+            - {{ p.description }}
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
