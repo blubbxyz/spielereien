@@ -47,7 +47,7 @@ def run_program(prog_name):
     result = None
     if request.method == "POST":
         # Dynamisch das Modul laden, auch aus Unterordner timetable
-        if prog_name.startswith("timetable_") or prog_name == "get_years_classes":
+        if prog_name.startswith("timetable_"):
             module = importlib.import_module(f"programs.timetable.{prog_name}")
         elif prog_name == "Startmenue":
             module = importlib.import_module(f"programs.Startmenue")
