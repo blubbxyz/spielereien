@@ -46,8 +46,15 @@ def run_program(prog_name):
 
     result = None
     if request.method == "POST":
-        # Lade Modul dynamisch
-        module = importlib.import_module(f"programs.{prog_name}")
+        # Dynamisch das Modul laden, auch aus Unterordner timetable
+        if prog_name.startswith("timetable_") or prog_name == "get_years_classes":
+            module = importlib.import_module(f"programs.timetable.{prog_name}")
+        elif prog_name == "Startmenue":
+            module = importlib.import_module(f"programs.Startmenue")
+        else:
+            module = importlib.import_module(f"programs.{prog_name}")
+
+        # Argumente je nach Programm
         if prog_name == "say_hello":
             name = request.form.get("name", "")
             result = module.run(name)
@@ -55,6 +62,8 @@ def run_program(prog_name):
             a = request.form.get("a", "0")
             b = request.form.get("b", "0")
             result = module.run(a, b)
+        else:
+            result = module.run()
 
     return render_template("program.html", prog=PROGRAMS[prog_name], prog_name=prog_name, result=result)
 
