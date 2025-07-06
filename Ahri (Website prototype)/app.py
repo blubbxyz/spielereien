@@ -12,6 +12,26 @@ PROGRAMS = {
     "calculate": {
         "title": "Calculate Sum",
         "description": "Adds two numbers."
+    },
+    "get_years_classes": {
+        "title": "Get Years Classes",
+        "description": "Zeigt die Jahrgänge und Klassen an."
+    },
+    "timetable_current_year": {
+        "title": "Timetable Current Year",
+        "description": "Zeigt den Stundenplan des aktuellen Jahres."
+    },
+    "timetable_stats": {
+        "title": "Timetable Stats",
+        "description": "Zeigt Statistiken zum Stundenplan."
+    },
+    "timetable_config_date": {
+        "title": "Timetable Config Date",
+        "description": "Konfiguriere das Stundenplandatum."
+    },
+    "Startmenue": {
+        "title": "Startmenü",
+        "description": "Startet das Hauptmenü."
     }
 }
 
