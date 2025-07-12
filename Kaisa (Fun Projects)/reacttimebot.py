@@ -2,7 +2,7 @@ import pyautogui
 print("make sure zour screen is full hd and that you browser is fullscreened")
 if input("Press enter to continue...") == "":
     pass
-pyautogui.click(921, 639)  # Click on the start button
+pyautogui.click(921, 639)
 while True:
     if pyautogui.pixel(452, 297) == (75, 219, 106):
         pyautogui.click(452, 297)

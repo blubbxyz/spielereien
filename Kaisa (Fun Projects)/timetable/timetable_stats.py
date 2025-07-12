@@ -49,15 +49,15 @@ if wahl == "1":
 elif wahl == "2":
     try:
         result = subprocess.run(
-            ["python", "Kaisa (Fun Projects)/timetable/time_table_api.py"],
+            ["python", "Kaisa (Fun Projects)/timetable/timetable_current_year.py"],
             capture_output=True, text=True
         )
         if result.returncode != 0:
-            print("Fehler beim Aufruf von time_table_api.py:")
+            print("Fehler beim Aufruf von timetable_current_year.py:")
             print(result.stdout)
             print(result.stderr)
     except Exception as e:
-        print(f"Fehler beim Ausführen von time_table_api.py: {e}")
+        print(f"Fehler beim Ausführen von timetable_current_year.py: {e}")
 
     json_path = os.path.join(script_dir, "stunden.json")
 else:
