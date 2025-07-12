@@ -59,4 +59,3 @@ print(my_dict["banana"])  # 5
 # | Syntax      | `{a, b, c}`                | `{key: value}`              |
 # | Example     | `{"red", "blue"}`          | `{"red": 255, "blue": 0}`   |
 # | Use case    | Unique collection of items | Mapping from keys to values |
-

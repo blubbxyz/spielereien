@@ -29,7 +29,7 @@ def choose_difficulty():
     idx = 0
     while True:
         os.system("cls")
-        print("Choose difficulty (←/→ and Enter):\n")
+        print("Choose difficulty (↑/↓ and Enter):\n")
         for i, opt in enumerate(options):
             if i == idx:
                 print(f"> {opt.upper()} <")
@@ -37,9 +37,9 @@ def choose_difficulty():
                 print(f"  {opt}  ")
         event = keyboard.read_event()
         if event.event_type == keyboard.KEY_DOWN:
-            if event.name == "right":
+            if event.name == "down":
                 idx = (idx + 1) % len(options)
-            elif event.name == "left":
+            elif event.name == "up":
                 idx = (idx - 1) % len(options)
             elif event.name == "enter":
                 return options[idx]
@@ -69,4 +69,4 @@ def game(difficulty):
         except ValueError:
             print("Please enter a valid number.")
 
-    menue()
+menue()
