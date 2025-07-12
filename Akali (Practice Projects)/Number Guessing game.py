@@ -69,5 +69,4 @@ def game(difficulty):
         except ValueError:
             print("Please enter a valid number.")
 
-if __name__ == "__main__":
     menue()
